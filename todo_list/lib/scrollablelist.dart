@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class  Scrollablelist extends StatelessWidget {
+class Scrollablelist extends StatelessWidget {
   final List<String> todoList;
   // Constructor to accept the todoList
 
@@ -8,9 +8,16 @@ class  Scrollablelist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container (
-      child: Text("scrollable"),
+    return Container(
+      height: 500,
+      child: ListView.builder(
+        itemCount: todoList.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(todoList[index]),
+          );
+        },
+        )
     );
-
   }
 }

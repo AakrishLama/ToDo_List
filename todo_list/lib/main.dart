@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             "Add Item to the Todo List",
-            style: GoogleFonts.roboto(
+            style: GoogleFonts.rakkas(
               color: Color(0xFFFAFAFA),
             ),
           ),
