@@ -4,11 +4,11 @@ class Scrollablelist extends StatelessWidget {
   final List<String> todoList;
   // Constructor to accept the todoList
 
-  const Scrollablelist({required this.todoList});
+  const Scrollablelist({super.key, required this.todoList});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 500,
       child: ListView.builder(
         itemCount: todoList.length,
