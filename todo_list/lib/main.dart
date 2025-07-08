@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // text editing controller to get the input from the user
-  final TextEditingController _controller = TextEditingController();
+  TextEditingController _controller = TextEditingController();
 
   void addItem() {
     if (_controller.text.trim().isNotEmpty) {
@@ -29,8 +29,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   void removeItem(int index) {
+    print(todoList[index]);
+
     setState(() {
-      todoList.removeAt(index);
+      final removedItem = todoList.removeAt(index);
+      _controller.text = removedItem;
     });
   }
 
