@@ -6,8 +6,34 @@ import "package:todo_list/imput.dart";
 void main() {
   runApp(MyApp());
 }
+// class StatefulWidget extends StatefulWidget {
+//   const StatefulWidget({super.key});
 
-class MyApp extends StatelessWidget {
+//   @override
+//   State<StatefulWidget> createState() => _StatefulWidgetState();
+// }
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+
+class _MyAppState extends State<MyApp> {
+
+  // text editing controller to get the input from the user
+  final TextEditingController _controller = TextEditingController();
+
+  void addItem() {
+    if(_controller.text.isNotEmpty){
+      setState(() {
+        todoList.add(_controller.text);
+        _controller.clear();      // to clear the input field after addition.
+      });
+    }
+  }
+
 
   List<String> todoList = [
     "Buy Milk",
@@ -37,10 +63,11 @@ class MyApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,  
             children: [
               const SizedBox(height: 20),
-              const Input(),
+              Input(inputController: _controller),
 
               const SizedBox(height: 20),
-              const ElevatedButton(onPressed: null, child: Text("Add Item")),
+              // elevated button for press and press enter to add item.
+              ElevatedButton(onPressed: addItem, child: const Text("Add Item"),),
 
               const SizedBox(height: 20),
               Scrollablelist( todoList: todoList),
