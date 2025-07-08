@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "package:google_fonts/google_fonts.dart";
 
 class Button extends StatelessWidget {
   final void Function() addItem;
@@ -7,22 +8,45 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: addItem,
-      style: ElevatedButton.styleFrom(
-        minimumSize: Size(150, 50),
-        backgroundColor: Colors.deepPurple,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: const BorderSide(color: Colors.deepPurple),
+    return TweenAnimationBuilder<double>(
+      duration: const Duration(milliseconds: 300),
+      tween: Tween(begin: 1.0, end: 1.0),
+      builder: (context, scale, child) {
+        return Transform.scale(scale: scale, child: child);
+      },
+      child: ElevatedButton(
+        onPressed: addItem,
+        style: ElevatedButton.styleFrom(
+          minimumSize: const Size(180, 60),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          backgroundColor: Colors.deepPurple,
+          foregroundColor: Colors.white,
+          shadowColor: Colors.deepPurple[300],
+          elevation: 8,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+            side: BorderSide(color: Colors.deepPurple[400]!, width: 2),
+          ),
+          // Gradient would go here if using Container instead
         ),
-      ),
-      child: const Text(
-        "Add Item",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+               Icons.add_circle_outline_rounded,
+              size: 28,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 12),
+            Text(
+              'Add Item',
+              style: GoogleFonts.quando(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1,
+              ),
+            ),
+          ],
         ),
       ),
     );
