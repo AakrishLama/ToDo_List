@@ -12,32 +12,77 @@ class Scrollablelist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 500,
-      child: ListView.builder(
-        itemCount: todoList.length,
-        itemBuilder: (context, index) {
-          return Container(
-            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: const Color.fromARGB(255, 20, 15, 28)),
-            ),
-            child: InkWell(
-              // borderRadius: BorderRadius.circular(10),
-              onTap: () => deleteItem!(index),
-              child: ListTile(
-                minTileHeight: 80,
-                minLeadingWidth: 90,
-                title: Text(todoList[index]),
-                trailing: IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () => deleteItem!(index),
+      decoration: BoxDecoration(
+        color: Colors.grey[50],
+        borderRadius: BorderRadius.circular(16),
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(12),
+          itemCount: todoList.length,
+          separatorBuilder: (context, index) => const SizedBox(height: 10),
+          itemBuilder: (context, index) {
+            return Material(
+              elevation: 12,
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.white,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () => deleteItem?.call(index),
+                splashColor: const Color.fromARGB(255, 100, 66, 135),
+                highlightColor: const Color.fromARGB(255, 193, 147, 238),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    minVerticalPadding: 0,
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple[100],
+                        shape: BoxShape.circle,
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        '${index + 1}',
+                        style: const TextStyle(
+                          color: Colors.deepPurple,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      todoList[index],
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete_outline),
+                      color: Colors.grey[600],
+                      splashRadius: 20, // Controls splash area
+                      onPressed: () => deleteItem?.call(index),
+                      style: IconButton.styleFrom(
+                        splashFactory:
+                            InkRipple.splashFactory, // Material ripple
+                        visualDensity: VisualDensity.comfortable,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
