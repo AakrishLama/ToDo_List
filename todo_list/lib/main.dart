@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import "package:todo_list/scrollablelist.dart";
 import "package:todo_list/imput.dart";
+import "package:todo_list/button.dart";
 
 void main() {
   runApp(MyApp());
 }
-// class StatefulWidget extends StatefulWidget {
-//   const StatefulWidget({super.key});
 
-//   @override
-//   State<StatefulWidget> createState() => _StatefulWidgetState();
-// }
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -30,6 +26,12 @@ class _MyAppState extends State<MyApp> {
         _controller.clear(); // to clear the input field after addition.
       });
     }
+  }
+
+  void removeItem(int index) {
+    setState(() {
+      todoList.removeAt(index);
+    });
   }
 
   List<String> todoList = [
@@ -62,26 +64,14 @@ class _MyAppState extends State<MyApp> {
               Input(inputController: _controller, onSubmit: addItem),
 
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: addItem,
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(150, 50),
-                  backgroundColor: Colors.deepPurple,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: const BorderSide(color: Colors.deepPurple),
-                  )
-                ),
-                child: const Text(
-                  "Add Item",
-                  style: TextStyle(color: Colors.white,
-                   fontSize: 20,
-                   fontWeight: FontWeight.bold),
-                ),
-              ),
+              Button(addItem: addItem),
+              
 
               const SizedBox(height: 20),
-              Scrollablelist(todoList: todoList),
+              Scrollablelist(
+                todoList: todoList,
+                deleteItem: removeItem,
+              ),
             ],
           ),
         ),
