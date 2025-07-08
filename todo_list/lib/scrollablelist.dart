@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "package:google_fonts/google_fonts.dart";
 
 class Scrollablelist extends StatelessWidget {
   final List<String> todoList;
@@ -17,6 +18,10 @@ class Scrollablelist extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.grey[50],
         borderRadius: BorderRadius.circular(16),
+        image: const DecorationImage(
+          image: AssetImage("images/wallpaper.png"),
+          fit: BoxFit.cover,
+        ),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: ClipRRect(
@@ -60,11 +65,11 @@ class Scrollablelist extends StatelessWidget {
                     ),
                     title: Text(
                       todoList[index],
-                      style: const TextStyle(
+                      style: GoogleFonts.rakkas(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Colors.black87,
-                      ),
+                      )
                     ),
                     trailing: IconButton(
                       icon: Icon(Icons.delete_outline),

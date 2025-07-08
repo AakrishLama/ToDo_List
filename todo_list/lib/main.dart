@@ -40,41 +40,6 @@ class _MyAppState extends State<MyApp> {
     "Buy Bread",
     "Buy Cheese",
     "Buy Juice",
-    "Buy Milk",
-    "Buy Eggs",
-    "Buy Bread",
-    "Buy Cheese",
-    "Buy Juice",
-    "Buy Milk",
-    "Buy Eggs",
-    "Buy Bread",
-    "Buy Cheese",
-    "Buy Juice",
-    "Buy Milk",
-    "Buy Eggs",
-    "Buy Bread",
-    "Buy Cheese",
-    "Buy Juice",
-    "Buy Milk",
-    "Buy Eggs",
-    "Buy Bread",
-    "Buy Cheese",
-    "Buy Juice",
-    "Buy Milk",
-    "Buy Eggs",
-    "Buy Bread",
-    "Buy Cheese",
-    "Buy Juice",
-    "Buy Milk",
-    "Buy Eggs",
-    "Buy Bread",
-    "Buy Cheese",
-    "Buy Juice",
-    "Buy Milk",
-    "Buy Eggs",
-    "Buy Bread",
-    "Buy Cheese",
-    "Buy Juice",
   ];
 
   @override
@@ -83,31 +48,38 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 243, 241, 246),
         appBar: AppBar(
           title: Text(
             "Add Item to the Todo List",
             style: GoogleFonts.rakkas(color: Color(0xFFFAFAFA)),
           ),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: const Color.fromARGB(255, 92, 67, 136),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              //press enter to add item
-              Input(inputController: _controller, onSubmit: addItem),
+        body: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/wallpaper.png"),
+              fit: BoxFit.cover,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                //press enter to add item
+                Input(inputController: _controller, onSubmit: addItem),
 
-              const SizedBox(height: 20),
-              Button(addItem: addItem),
-              
+                const SizedBox(height: 20),
+                Button(addItem: addItem),
 
-              const SizedBox(height: 20),
-              Scrollablelist(
-                todoList: todoList,
-                deleteItem: removeItem,
-              ),
-            ],
+                const SizedBox(height: 20),
+                Scrollablelist(todoList: todoList, deleteItem: removeItem),
+              ],
+            ),
           ),
         ),
       ),
