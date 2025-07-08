@@ -10,7 +10,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 300),
-      tween: Tween(begin: 1.0, end: 1.0),
+      tween: Tween(begin: 0.95, end: 1.0),
       builder: (context, scale, child) {
         return Transform.scale(scale: scale, child: child);
       },
