@@ -25,3 +25,9 @@ A beautiful, interactive todo list application built with Flutter featuring drag
   - `GoogleFonts` for beautiful typography
   - Custom color schemes and theming
 
+## Start
+- clone the repository
+- Navigate through command terminal `cd todo_list`
+- Install dependencies `flutter pub get`
+- Run command `flutter run`.
+
