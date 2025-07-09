@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import "package:google_fonts/google_fonts.dart";
 
 class Button extends StatelessWidget {
-  final void Function() addItem;
+  final void Function() onTap;
+  final String name;
 
-  const Button({super.key, required this.addItem});
+  const Button({super.key, required this.onTap, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class Button extends StatelessWidget {
         return Transform.scale(scale: scale, child: child);
       },
       child: ElevatedButton(
-        onPressed: addItem,
+        onPressed: onTap,
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(180, 60),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -39,7 +40,7 @@ class Button extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             Text(
-              'Add Item',
+              name,
               style: GoogleFonts.quando(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,

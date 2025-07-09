@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void removeItem(int index) {
-    print(todoList[index]);
+    // print(todoList[index]);
 
     setState(() {
       final removedItem = todoList.removeAt(index);
@@ -69,19 +69,23 @@ class _MyAppState extends State<MyApp> {
             borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                //press enter to add item
-                Input(inputController: _controller, onSubmit: addItem),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  //press enter to add item
+                  Input(inputController: _controller, onSubmit: addItem),
 
-                const SizedBox(height: 20),
-                Button(addItem: addItem),
+                  const SizedBox(height: 20),
+                  Button(onTap: addItem, name: "Add Item"),
 
-                const SizedBox(height: 20),
-                Scrollablelist(todoList: todoList, deleteItem: removeItem),
-              ],
+                  const SizedBox(height: 20),
+
+                  const SizedBox(height: 20),
+                  Scrollablelist(todoList: todoList, deleteItem: removeItem),
+                  // if(!isEditing)Scrollablelist(todoList: todoList, deleteItem: removeItem),
+                ],
+              ),
             ),
           ),
         ),

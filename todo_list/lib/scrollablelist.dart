@@ -5,12 +5,16 @@ class Scrollablelist extends StatelessWidget {
   final List<String> todoList;
   final Function(int)? deleteItem;
 
+
   const Scrollablelist({
     super.key,
     required this.todoList,
     required this.deleteItem,
   });
 
+  void swap(){
+    print("go swap");
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -69,18 +73,18 @@ class Scrollablelist extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Colors.black87,
-                      )
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete_outline),
-                      color: Colors.grey[600],
-                      splashRadius: 20, // Controls splash area
-                      onPressed: () => deleteItem?.call(index),
-                      style: IconButton.styleFrom(
-                        splashFactory:
-                            InkRipple.splashFactory, // Material ripple
-                        visualDensity: VisualDensity.comfortable,
                       ),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.delete_outline),
+                          color: Colors.grey[600],
+                          splashRadius: 20, 
+                          onPressed: () => deleteItem!(index),
+                        ),
+                      ],
                     ),
                   ),
                 ),
