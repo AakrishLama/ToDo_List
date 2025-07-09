@@ -44,6 +44,15 @@ class _MyAppState extends State<MyApp> {
     "Buy Cheese",
     "Buy Juice",
   ];
+  void reorderItems(int oldIndex, int newIndex) {
+  setState(() {
+    if (oldIndex < newIndex) {
+      newIndex -= 1; // Adjust when moving down
+    }
+    final item = todoList.removeAt(oldIndex);
+    todoList.insert(newIndex, item);
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +91,7 @@ class _MyAppState extends State<MyApp> {
                   const SizedBox(height: 20),
 
                   const SizedBox(height: 20),
-                  Scrollablelist(todoList: todoList, deleteItem: removeItem),
+                  Scrollablelist(todoList: todoList, deleteItem: removeItem, onReorder: reorderItems),
                   // if(!isEditing)Scrollablelist(todoList: todoList, deleteItem: removeItem),
                 ],
               ),

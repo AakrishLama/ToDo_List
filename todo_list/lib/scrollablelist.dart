@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import "package:google_fonts/google_fonts.dart";
+import 'package:google_fonts/google_fonts.dart';
 
-class Scrollablelist extends StatelessWidget {
+class Scrollablelist extends StatefulWidget {
   final List<String> todoList;
   final Function(int)? deleteItem;
-
+  final Function(int, int)? onReorder;
 
   const Scrollablelist({
     super.key,
     required this.todoList,
     required this.deleteItem,
+    required this.onReorder,
   });
 
-  void swap(){
-    print("go swap");
-  }
+  @override
+  State<Scrollablelist> createState() => _ScrollablelistState();
+}
+
+class _ScrollablelistState extends State<Scrollablelist> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,61 +33,76 @@ class Scrollablelist extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
-        child: ListView.separated(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(12),
-          itemCount: todoList.length,
-          separatorBuilder: (context, index) => const SizedBox(height: 10),
+        child: ReorderableListView.builder(
+          padding: const EdgeInsets.all(14),
+          itemCount: widget.todoList.length,
+          onReorder: (oldIndex, newIndex) {
+            widget.onReorder!(oldIndex, newIndex);
+          },
           itemBuilder: (context, index) {
-            return Material(
-              elevation: 12,
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.white,
-              child: InkWell(
+            return Padding(
+              key: Key(widget.todoList[index]),
+              padding: const EdgeInsets.only(top: 10), 
+              child: Material(
+                elevation: 12,
                 borderRadius: BorderRadius.circular(12),
-                onTap: () => deleteItem?.call(index),
-                splashColor: const Color.fromARGB(255, 100, 66, 135),
-                highlightColor: const Color.fromARGB(255, 193, 147, 238),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    minVerticalPadding: 0,
-                    leading: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.deepPurple[100],
-                        shape: BoxShape.circle,
+                color: Colors.white,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(12),
+                  onTap: () => widget.deleteItem?.call(index),
+                  splashColor: const Color.fromARGB(255, 100, 66, 135),
+                  highlightColor: const Color.fromARGB(255, 193, 147, 238),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      minVerticalPadding: 0,
+                      leading: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.deepPurple[100],
+                          shape: BoxShape.circle,
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '${index + 1}',
+                          style: const TextStyle(
+                            color: Colors.deepPurple,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        '${index + 1}',
-                        style: const TextStyle(
-                          color: Colors.deepPurple,
-                          fontWeight: FontWeight.bold,
+                      title: Text(
+                        widget.todoList[index],
+                        style: GoogleFonts.rakkas(
                           fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black87,
                         ),
                       ),
-                    ),
-                    title: Text(
-                      todoList[index],
-                      style: GoogleFonts.rakkas(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.delete_outline),
+                      subtitle: Text(
+                        'Long press and drag to reorder',
+                        style: GoogleFonts.rakkas(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
                           color: Colors.grey[600],
-                          splashRadius: 20, 
-                          onPressed: () => deleteItem!(index),
                         ),
-                      ],
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.drag_handle, color: Colors.grey),
+                          const SizedBox(width: 8),
+                          IconButton(
+                            icon: const Icon(Icons.delete_outline),
+                            color: Colors.grey[600],
+                            splashRadius: 20,
+                            onPressed: () => widget.deleteItem!(index),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
