@@ -2,7 +2,7 @@
 
 A beautiful, interactive todo list application built with Flutter featuring drag-and-drop reordering, intuitive UI, and smooth animations.
 
-![App Screenshot](screenshots/app_preview.png) <!-- Add your screenshot here -->
+![App Screenshot](https://github.com/AakrishLama/ToDo_List/blob/main/app.png?raw=true) 
 
 ## Features ✨
 
